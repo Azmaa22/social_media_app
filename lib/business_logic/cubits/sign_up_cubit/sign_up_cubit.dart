@@ -11,7 +11,6 @@ class SignUpCubit extends Cubit<SignUpStates> {
   static SignUpCubit get(context) => BlocProvider.of(context);
 
   void signUpNewUser({required UserModel user}) async {
-    print('email user ${user.email}');
     emit(SignUpLoadingState());
     var result = await FirebaseAuthHelper.signUp(
       email: user.email,

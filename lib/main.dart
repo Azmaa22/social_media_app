@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
+import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:social_media_app/business_logic/cubits/sign_up_cubit/sign_up_cubit.dart';
 import 'package:social_media_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:social_media_app/presentation/screens/profile_screen/profile_screen.dart';
-import 'package:social_media_app/presentation/screens/registration_screen/registration_form.dart';
 import 'package:social_media_app/presentation/screens/registration_screen/registration_screen.dart';
 
 void main() async {
@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SignUpCubit>(
           create: (BuildContext context) => SignUpCubit(),
+        ),
+        BlocProvider<SignInCubit>(
+          create: (BuildContext context) => SignInCubit(),
         ),
       ],
       child: MaterialApp(

@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_cubit.dart';
+import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_states.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_auth_helper.dart';
 import 'package:social_media_app/presentation/components/button.dart';
 import 'package:social_media_app/presentation/components/image_container.dart';
 import 'package:social_media_app/presentation/components/input.dart';
 import 'package:social_media_app/presentation/components/label.dart';
 import 'package:social_media_app/presentation/components/social_button.dart';
+import 'package:social_media_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:social_media_app/presentation/screens/registration_screen/registration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String id = 'LoginScreen';
   LoginScreen({Key? key}) : super(key: key);
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final String email = 'email';
+  final String password = 'password';
+  final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,58 +39,91 @@ class LoginScreen extends StatelessWidget {
                 fontSize: 35.0,
                 fontWeight: FontWeight.bold,
               ),
-              Input(
-                name: 'emial',
-                placeholder: 'please enter your email',
-                icon: 'assets/svgs/email-svgrepo-com.svg',
-                label: 'email',
-                textInputType: TextInputType.emailAddress,
-                onChange: (value) {
-                  debugPrint('login email value $value');
+              BlocConsumer<SignInCubit, SignInStates>(
+                listener: (context, state) {
+                  print('current state $state');
+                  if (state is SignInSuccessState) {
+                    print('open profile page from login $state');
+                    Navigator.pushNamed(
+                      context,
+                      ProfileScreen.id,
+                    );
+                  }
+                  if (state is SignInErrorState) {
+                    print('error from login $state');
+                  }
                 },
-                onValidate: (value) {
-                  FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      errorText: 'you should enter your email',
+                builder: (context, state) {
+                  SignInCubit myCubit = SignInCubit.get(context);
+                  return FormBuilder(
+                    autovalidateMode: AutovalidateMode.always,
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Input(
+                          name: email,
+                          placeholder: 'please enter your email',
+                          icon: 'assets/svgs/email-svgrepo-com.svg',
+                          label: 'email',
+                          textInputType: TextInputType.emailAddress,
+                          onChange: (value) {
+                            debugPrint('login email value $value');
+                          },
+                          onValidate: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.required(
+                                errorText: 'you should enter your email',
+                              ),
+                              FormBuilderValidators.email(
+                                errorText: 'you should enter valid email',
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Input(
+                          name: password,
+                          placeholder: 'please enter your password',
+                          icon: 'assets/svgs/lock-svgrepo-com.svg',
+                          label: 'password',
+                          isPassword: true,
+                          textInputType: TextInputType.visiblePassword,
+                          onChange: (value) {
+                            debugPrint('login password value ');
+                          },
+                          onValidate: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.required(
+                                errorText: 'you should enter your password',
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.05,
+                        ),
+                        Button(
+                          title: 'Login',
+                          onPress: () {
+                            _formKey.currentState?.save();
+                            if (_formKey.currentState!.validate()) {
+                              var user = _formKey.currentState!.value;
+                              print('value of state $user');
+                              print('tets ${user[password]} ${user[email]}');
+                              myCubit.signInUser(
+                                email: user[email],
+                                password: user[password],
+                              );
+                            } else {
+                              print("validation failed");
+                            }
+                          },
+                        ),
+                      ],
                     ),
-                    FormBuilderValidators.email(
-                      errorText: 'you should enter valid email',
-                    ),
-                  ]);
-                },
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Input(
-                name: 'password',
-                placeholder: 'please enter your password',
-                icon: 'assets/svgs/lock-svgrepo-com.svg',
-                label: 'password',
-                isPassword: true,
-                textInputType: TextInputType.visiblePassword,
-                onChange: (value) {
-                  debugPrint('login password value $value');
-                },
-                onValidate: (value) {
-                  FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      errorText: 'you should enter your password',
-                    ),
-                  ]);
-                },
-              ),
-              SizedBox(
-                height: size.height * 0.05,
-              ),
-              Button(
-                title: 'Login',
-                onPress: () {
-                  print('email value : ${emailController.text}');
-                  print('password value : ${passwordController.text}');
-                  FirebaseAuthHelper.signUp(
-                      email: emailController.text,
-                      password: passwordController.text);
+                  );
                 },
               ),
               SizedBox(
@@ -103,24 +142,15 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   SocialButton(
                     icon: 'assets/svgs/google-svgrepo-com.svg',
-                    onPress: () {
-                      print('email value : ${emailController.text}');
-                      print('password value : ${passwordController.text}');
-                    },
+                    onPress: () {},
                   ),
                   SocialButton(
                     icon: 'assets/svgs/facebook-svgrepo-com.svg',
-                    onPress: () {
-                      print('email value : ${emailController.text}');
-                      print('password value : ${passwordController.text}');
-                    },
+                    onPress: () {},
                   ),
                   SocialButton(
                     icon: 'assets/svgs/apple-svgrepo-com-2.svg',
-                    onPress: () {
-                      print('email value : ${emailController.text}');
-                      print('password value : ${passwordController.text}');
-                    },
+                    onPress: () {},
                   ),
                 ],
               ),

@@ -4,6 +4,7 @@ class UserModel {
   late String email;
   late String password;
   String? image;
+  bool? isEmailVerification;
 
   UserModel({
     this.userId,
@@ -11,6 +12,7 @@ class UserModel {
     required this.email,
     required this.password,
     this.image,
+    this.isEmailVerification,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -19,16 +21,17 @@ class UserModel {
     email = json['email'];
     password = json['password'];
     image = json['image'];
+    isEmailVerification = json['isEmailVerification'];
   }
 
   Map<String, dynamic> toJson() {
-    print('this email ${this.email}');
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['user_id'] = this.userId;
     data['username'] = this.username;
     data['email'] = this.email;
     data['password'] = this.password;
     data['image'] = this.image;
+    data['isEmailVerification'] = this.isEmailVerification;
     return data;
   }
 }
