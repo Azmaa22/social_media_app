@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "743132564416",
+    "project_id": "iti-task-1fc63",
+    "storage_bucket": "iti-task-1fc63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743132564416:android:bb6766653e6a2c7d6bd625",
+        "android_client_info": {
+          "package_name": "com.example.social_media_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743132564416-4r4icqcftv8d1fpbuf4p8e9h2mbu73lo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.social_media_app",
+            "certificate_hash": "df70add15e2e163d5061189e2e9e467f06c2f516"
+          }
+        },
+        {
+          "client_id": "743132564416-2ikjuc0p8hrbak6mls49trf13hq1hupg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLcmEWNsgx1ksnYAQZbFc2iA56S66-Q9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743132564416-2ikjuc0p8hrbak6mls49trf13hq1hupg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
