@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Input extends StatelessWidget {
-  final TextEditingController controller;
+  final String name;
   final String icon;
   final String placeholder;
   final String label;
   final TextInputType textInputType;
   final bool isPassword;
   final String passwordCharacter;
+  final Function(String?) onChange;
+  final String? Function(String?) onValidate;
   const Input({
     Key? key,
-    required this.controller,
+    required this.name,
     required this.placeholder,
     required this.icon,
     required this.label,
+    required this.onChange,
+    required this.onValidate,
     this.textInputType = TextInputType.text,
     this.isPassword = false,
     this.passwordCharacter = '*',
@@ -22,8 +27,10 @@ class Input extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
+    return FormBuilderTextField(
+      onChanged: onChange,
+      validator: onValidate,
+      name: name,
       decoration: InputDecoration(
         icon: SvgPicture.asset(
           icon,

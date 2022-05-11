@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_auth_helper.dart';
 import 'package:social_media_app/presentation/components/button.dart';
 import 'package:social_media_app/presentation/components/image_container.dart';
@@ -33,22 +34,45 @@ class LoginScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               Input(
-                controller: emailController,
+                name: 'emial',
                 placeholder: 'please enter your email',
                 icon: 'assets/svgs/email-svgrepo-com.svg',
                 label: 'email',
                 textInputType: TextInputType.emailAddress,
+                onChange: (value) {
+                  debugPrint('login email value $value');
+                },
+                onValidate: (value) {
+                  FormBuilderValidators.compose([
+                    FormBuilderValidators.required(
+                      errorText: 'you should enter your email',
+                    ),
+                    FormBuilderValidators.email(
+                      errorText: 'you should enter valid email',
+                    ),
+                  ]);
+                },
               ),
               SizedBox(
                 height: size.height * 0.02,
               ),
               Input(
-                controller: passwordController,
+                name: 'password',
                 placeholder: 'please enter your password',
                 icon: 'assets/svgs/lock-svgrepo-com.svg',
                 label: 'password',
                 isPassword: true,
                 textInputType: TextInputType.visiblePassword,
+                onChange: (value) {
+                  debugPrint('login password value $value');
+                },
+                onValidate: (value) {
+                  FormBuilderValidators.compose([
+                    FormBuilderValidators.required(
+                      errorText: 'you should enter your password',
+                    ),
+                  ]);
+                },
               ),
               SizedBox(
                 height: size.height * 0.05,
