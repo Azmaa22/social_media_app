@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:social_media_app/constants/colors.dart';
+import 'package:social_media_app/constants/colors_manager.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({Key? key, required this.onBackPress, required this.onEditPress})
@@ -13,7 +13,7 @@ class TopBar extends StatelessWidget {
     return Container(
       width: size.width,
       height: size.height * 0.15,
-      color: profileColor,
+      color: ColorManager.kPrimaryColor,
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

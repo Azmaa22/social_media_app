@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:social_media_app/business_logic/cubits/sign_up_cubit/sign_up_cubit_route.dart';
-import 'package:social_media_app/constants/colors.dart';
+import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/data/models/user.dart';
 import 'package:social_media_app/presentation/components/components.dart';
 import 'package:social_media_app/presentation/screens/login_screen/login_screen.dart';
@@ -29,7 +29,7 @@ class RegistrationScreen extends StatelessWidget {
               SignUpCubit myCubit = SignUpCubit.get(context);
               if (state is SignUpLoadingState) {
                 return const CircularProgressIndicator(
-                  color: profileColor,
+                  color: ColorManager.kPrimaryColor,
                 );
               }
               if (state is SignUpErrorState) {

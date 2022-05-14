@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:social_media_app/constants/colors.dart';
+import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/presentation/components/label.dart';
 
 class LabelContainer extends StatelessWidget {
@@ -16,7 +16,7 @@ class LabelContainer extends StatelessWidget {
           icon,
           height: 25.0,
           width: 25.0,
-          color: profileColor,
+          color: ColorManager.kPrimaryColor,
         ),
         const SizedBox(
           width: 10,

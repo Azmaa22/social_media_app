@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_states.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_auth_helper.dart';
+import 'package:social_media_app/helpers/shared_preferences_helper/shared_preferences_helper.dart';
 
 class SignInCubit extends Cubit<SignInStates> {
   SignInCubit() : super(SignInInitState());
@@ -15,8 +16,14 @@ class SignInCubit extends Cubit<SignInStates> {
         await FirebaseAuthHelper.signIn(email: email, password: password);
     if (result is UserCredential) {
       print('User login now $result');
+      SharedPreferencesHelper.saveData(
+        key: 'uId',
+        value: result.user?.uid,
+      );
       emit(
-        SignInSuccessState('id'),
+        SignInSuccessState(
+          result.user!.uid,
+        ),
       );
     } else {
       emit(
