@@ -6,6 +6,7 @@ class ThemeManager {
   static ThemeData lightTheme = ThemeData(
     appBarTheme: const AppBarTheme(
       backgroundColor: ColorManager.kPrimaryColor,
+      elevation: 0.0,
     ),
     scaffoldBackgroundColor: ColorManager.kOffWhiteColor,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/constants/colors_manager.dart';
 
 class Button extends StatelessWidget {
   final String title;
@@ -23,7 +24,7 @@ class Button extends StatelessWidget {
           height: height,
           margin: const EdgeInsets.all(10.0),
           decoration: const BoxDecoration(
-            color: Colors.blue,
+            color: ColorManager.kPrimaryColor,
             borderRadius: BorderRadius.all(
               Radius.circular(
                 10.0,

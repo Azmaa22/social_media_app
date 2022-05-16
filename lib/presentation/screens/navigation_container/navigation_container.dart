@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/business_logic/cubits/navigation_cubit/navigation_cubit.dart';
 import 'package:social_media_app/business_logic/cubits/navigation_cubit/navigation_states.dart';
 import 'package:social_media_app/constants/icon_broken.dart';
+import 'package:social_media_app/constants/image_manager.dart';
+import 'package:social_media_app/presentation/screens/profile_screen/profile_screen.dart';
 
 class NavigationContainer extends StatelessWidget {
   const NavigationContainer({Key? key}) : super(key: key);
@@ -14,6 +16,22 @@ class NavigationContainer extends StatelessWidget {
         NavigationCubit myCubit = NavigationCubit.get(context);
         return Scaffold(
           appBar: AppBar(
+            leading: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    ProfileScreen.id,
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    radius: 20.0,
+                    backgroundImage: NetworkImage(
+                      ImageManager.profileImage,
+                    ),
+                  ),
+                )),
             title: Text(
               myCubit.titles[myCubit.currentIndex],
             ),

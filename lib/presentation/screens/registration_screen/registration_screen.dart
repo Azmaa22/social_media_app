@@ -21,6 +21,7 @@ class RegistrationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: ColorManager.kWhiteColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -154,8 +155,6 @@ class RegistrationScreen extends StatelessWidget {
                             _formKey.currentState?.save();
                             if (_formKey.currentState!.validate()) {
                               var user = _formKey.currentState!.value;
-                              print('value of state $user');
-                              print('tets ${user[userName]} ${user[email]}');
 
                               myCubit.signUpNewUser(
                                 user: UserModel(
@@ -185,7 +184,7 @@ class RegistrationScreen extends StatelessWidget {
                         },
                         child: const Label(
                           title: 'Login',
-                          fontColor: Colors.blue,
+                          fontColor: ColorManager.kPrimaryColor,
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),

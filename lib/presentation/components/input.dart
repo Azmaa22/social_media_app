@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:social_media_app/constants/colors_manager.dart';
 
 class Input extends StatelessWidget {
   final String name;
@@ -31,7 +32,15 @@ class Input extends StatelessWidget {
       onChanged: onChange,
       validator: onValidate,
       name: name,
+      style: const TextStyle(
+        color: ColorManager.kBlackColor,
+      ),
       decoration: InputDecoration(
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: ColorManager.kPrimaryColor,
+          ),
+        ),
         icon: SvgPicture.asset(
           icon,
           height: 25.0,
@@ -40,6 +49,9 @@ class Input extends StatelessWidget {
         ),
         hintText: placeholder,
         labelText: label,
+        labelStyle: const TextStyle(
+          color: ColorManager.kPrimaryColor,
+        ),
       ),
       keyboardType: textInputType,
       obscureText: isPassword,

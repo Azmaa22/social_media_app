@@ -4,12 +4,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_states.dart';
-import 'package:social_media_app/helpers/firebase_helper/firebase_auth_helper.dart';
-import 'package:social_media_app/presentation/components/button.dart';
-import 'package:social_media_app/presentation/components/image_container.dart';
-import 'package:social_media_app/presentation/components/input.dart';
-import 'package:social_media_app/presentation/components/label.dart';
-import 'package:social_media_app/presentation/components/social_button.dart';
+import 'package:social_media_app/constants/colors_manager.dart';
+import 'package:social_media_app/presentation/components/components.dart';
 import 'package:social_media_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:social_media_app/presentation/screens/registration_screen/registration_screen.dart';
 
@@ -24,6 +20,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: ColorManager.kWhiteColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -110,8 +107,7 @@ class LoginScreen extends StatelessWidget {
                             _formKey.currentState?.save();
                             if (_formKey.currentState!.validate()) {
                               var user = _formKey.currentState!.value;
-                              print('value of state $user');
-                              print('tets ${user[password]} ${user[email]}');
+
                               myCubit.signInUser(
                                 email: user[email],
                                 password: user[password],
@@ -167,7 +163,7 @@ class LoginScreen extends StatelessWidget {
                     },
                     child: const Label(
                       title: 'Register',
-                      fontColor: Colors.blue,
+                      fontColor: ColorManager.kPrimaryColor,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),

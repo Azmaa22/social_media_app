@@ -8,7 +8,7 @@ class AvatarImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.width * 0.3,
+      width: size.width * 0.2,
       height: size.height * 0.2,
       decoration: BoxDecoration(
         shape: BoxShape.circle,

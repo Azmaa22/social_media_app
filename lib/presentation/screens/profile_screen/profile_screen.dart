@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
+import 'package:social_media_app/constants/image_manager.dart';
 import 'package:social_media_app/presentation/components/label.dart';
 import 'package:social_media_app/presentation/screens/profile_screen/widgets/avatar_image.dart';
 import 'package:social_media_app/presentation/screens/profile_screen/widgets/info_container.dart';
@@ -15,57 +16,52 @@ class ProfileScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: Stack(
-      children: [
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: TopBar(
-            onBackPress: () {
-              print('back to home');
-            },
-            onEditPress: () {
-              print('edit  profile');
-            },
+      appBar: AppBar(
+        title: const Text('My Profile,'),
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: height * 0.25,
+            child: Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.topCenter,
+                  child: Container(
+                    width: width,
+                    height: height * 0.2,
+                    decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          ImageManager.postImage,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                CircleAvatar(
+                  radius: width * 0.12,
+                  backgroundColor: ColorManager.kWhiteColor,
+                  child: CircleAvatar(
+                    radius: width * 0.11,
+                    backgroundImage: const NetworkImage(
+                      ImageManager.profileImage,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        Positioned(
-          top: height * 0.12,
-          child: const InfoContainer(),
-        ),
-        Positioned(
-          top: height * 0.02,
-          left: width * 0.35,
-          child: Column(
-            children: const [
-              AvatarImage(
-                image:
-                    'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80',
-              ),
-              Label(
-                title: 'Asmaa khaled',
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-                fontColor: ColorManager.kPrimaryColor,
-              ),
-            ],
+          const Label(
+            title: 'Asmaa khaled',
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
           ),
-        ),
-        Positioned(
-            top: height * 0.3,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: const [
-                  LabelContainer(
-                    icon: 'assets/svgs/email-svgrepo-com-2.svg',
-                    value: 'asmaakhaled603@gmail.com',
-                  )
-                ],
-              ),
-            )),
-      ],
-    ));
+        ],
+      ),
+    );
   }
 }
