@@ -5,6 +5,7 @@ import 'package:social_media_app/business_logic/cubits/sign_up_cubit/sign_up_sta
 import 'package:social_media_app/data/models/user.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_auth_helper.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_store_helper.dart';
+import 'package:social_media_app/helpers/shared_constants/shared_constants.dart';
 
 class SignUpCubit extends Cubit<SignUpStates> {
   SignUpCubit() : super(SignUpInitState());
@@ -17,7 +18,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
       password: user.password,
     );
     if (result is UserCredential) {
-      print('true ${result.user!.uid}');
+      SharedConstants.uId = result.user!.uid;
       FirebaseStoreHelper.addNewUser(
         user: UserModel(
           userId: result.user!.uid,

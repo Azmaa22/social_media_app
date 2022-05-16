@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_cubit.dart';
+import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_states.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/constants/icon_broken.dart';
 import 'package:social_media_app/constants/image_manager.dart';
-import 'package:social_media_app/presentation/components/components.dart';
-import 'package:social_media_app/presentation/screens/home_screen/widgets/cover_container.dart';
 import 'package:social_media_app/presentation/screens/home_screen/widgets/post_container.dart';
 import 'package:social_media_app/presentation/screens/home_screen/widgets/post_label.dart';
 
@@ -29,17 +30,31 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    children: const [
-                      CircleAvatar(
-                        radius: 20.0,
-                        backgroundImage: NetworkImage(
-                          ImageManager.profileImage,
-                        ),
+                    children: [
+                      BlocBuilder<ProfileCubit, ProfileStates>(
+                        builder: (context, state) {
+                          if (state is ProfileLoadingState) {
+                            return const CircularProgressIndicator();
+                          }
+                          if (state is ProfileLoadingState) {
+                            return const CircleAvatar(
+                              radius: 20.0,
+                              backgroundColor: ColorManager.kSecondaryColor,
+                            );
+                          }
+                          return CircleAvatar(
+                            radius: 20.0,
+                            backgroundImage: NetworkImage(
+                              ProfileCubit.get(context).user!.image ??
+                                  ImageManager.profilePlaceholder,
+                            ),
+                          );
+                        },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10.0,
                       ),
-                      Expanded(
+                      const Expanded(
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(

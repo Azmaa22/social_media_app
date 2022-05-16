@@ -1,10 +1,13 @@
+import 'package:social_media_app/constants/image_manager.dart';
+
 class UserModel {
   String? userId;
   late String username;
   late String email;
   late String password;
   String? image;
-  bool? isEmailVerification;
+  String? cover;
+  String? bio;
 
   UserModel({
     this.userId,
@@ -12,16 +15,18 @@ class UserModel {
     required this.email,
     required this.password,
     this.image,
-    this.isEmailVerification,
+    this.cover,
+    this.bio,
   });
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(var json) {
     userId = json['user_id'];
     username = json['username'];
     email = json['email'];
     password = json['password'];
     image = json['image'];
-    isEmailVerification = json['isEmailVerification'];
+    cover = json['cover'];
+    bio = json['bio'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,7 +36,8 @@ class UserModel {
     data['email'] = this.email;
     data['password'] = this.password;
     data['image'] = this.image;
-    data['isEmailVerification'] = this.isEmailVerification;
+    data['cover'] = this.cover;
+    data['bio'] = this.bio;
     return data;
   }
 }

@@ -28,10 +28,11 @@ class PostContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const PostHeader(
-                networkPicture: ImageManager.profileImage,
-                userName: 'Asmaa Khaled',
-                dateOfPublishing: 'jan 21, 2022',
-                timeOfPublishing: '11:00 pm'),
+              networkPicture: ImageManager.profileImage,
+              userName: 'Asmaa Khaled',
+              dateOfPublishing: 'jan 21, 2022',
+              timeOfPublishing: '11:00 pm',
+            ),
             const SizedBox(
               height: 10.0,
             ),

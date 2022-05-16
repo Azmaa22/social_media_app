@@ -5,6 +5,7 @@ import 'package:social_media_app/business_logic/cubits/app_bloc_provider.dart';
 import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:social_media_app/business_logic/cubits/sign_up_cubit/sign_up_cubit.dart';
 import 'package:social_media_app/constants/theme_manager.dart';
+import 'package:social_media_app/helpers/shared_constants/shared_constants.dart';
 import 'package:social_media_app/helpers/shared_preferences_helper/shared_preferences_helper.dart';
 import 'package:social_media_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,8 +25,8 @@ void main() async {
   await SharedPreferencesHelper.initSharedPreferences();
 
   Widget widget;
-
   var userId = SharedPreferencesHelper.getData(key: 'uId');
+  SharedConstants.uId = userId ?? '';
 
   if (userId != null) {
     widget = const NavigationContainer();
