@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media_app/business_logic/cubits/post_cubit/post_cubit.dart';
+import 'package:social_media_app/business_logic/cubits/post_cubit/post_states.dart';
 import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_cubit.dart';
 import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_states.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
@@ -39,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                           if (state is ProfileLoadingState) {
                             return const CircularProgressIndicator();
                           }
-                          if (state is ProfileLoadingState) {
+                          if (state is ProfileErrorState) {
                             return const CircleAvatar(
                               radius: 20.0,
                               backgroundColor: ColorManager.kSecondaryColor,
@@ -100,14 +102,42 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 15.0,
             ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => const PostContainer(),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 8.0,
-              ),
-              itemCount: 10,
+            BlocBuilder<PostCubit, PostStates>(
+              builder: (context, state) {
+                if (state is GetAllPostsLoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.kPrimaryColor,
+                    ),
+                  );
+                }
+                if (state is GetAllPostsErrorState) {
+                  return const Center(
+                    child: Text(
+                      'something error',
+                    ),
+                  );
+                }
+                return PostCubit.get(context).posts.isEmpty
+                    ? const Center(
+                        child: Text(
+                          'No posts Found -_- ',
+                        ),
+                      )
+                    : ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) => PostContainer(
+                          post: PostCubit.get(context).posts[index],
+                          numberOfLikes:
+                              PostCubit.get(context).postLikes[index],
+                        ),
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 8.0,
+                        ),
+                        itemCount: PostCubit.get(context).posts.length,
+                      );
+              },
             ),
             const SizedBox(
               height: 15.0,

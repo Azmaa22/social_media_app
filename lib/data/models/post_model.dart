@@ -5,13 +5,15 @@ class PostModel {
   String? postId;
   String? postContent;
   String? postImage;
-  String? dateAndTime;
+  String? date;
+  String? time;
 
   PostModel({
     required this.userId,
     required this.userName,
     required this.userImage,
-    required this.dateAndTime,
+    required this.date,
+    required this.time,
     this.postId = '',
     required this.postContent,
     this.postImage = '',
@@ -21,7 +23,8 @@ class PostModel {
     userId = json['userId'];
     userName = json['userName'];
     userImage = json['userImage'];
-    dateAndTime = json['dateAndTime'];
+    date = json['date'];
+    time = json['time'];
     postId = json['postId'];
     postContent = json['postContent'];
     postImage = json['postImage'];
@@ -32,7 +35,8 @@ class PostModel {
     data['userId'] = this.userId;
     data['userName'] = this.userName;
     data['userImage'] = this.userImage;
-    data['dateAndTime'] = this.dateAndTime;
+    data['date'] = this.date;
+    data['time'] = this.time;
     data['postId'] = this.postId;
     data['postContent'] = this.postContent;
     data['postImage'] = this.postImage;

@@ -24,8 +24,7 @@ void main() async {
   Widget widget;
   var userId = SharedPreferencesHelper.getData(key: 'uId');
   SharedConstants.uId = userId ?? '';
-  debugPrint(
-      'ids  SharedConstants.uId : ${SharedConstants.uId} userId $userId');
+
   if (userId != null) {
     widget = const NavigationContainer();
   } else {

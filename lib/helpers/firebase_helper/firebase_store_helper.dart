@@ -5,10 +5,29 @@ import 'package:social_media_app/data/models/user_model.dart';
 class FirebaseStoreHelper {
   static CollectionReference users = getYourCollection(collectionName: 'users');
   static CollectionReference posts = getYourCollection(collectionName: 'posts');
+
+  static Future<QuerySnapshot<Object?>> getPosts() async {
+    QuerySnapshot<Object?> data = await posts.get();
+
+    return data;
+  }
+
   static addPostId({required String postId}) async {
     await posts.doc(postId).update({
       'postId': postId,
     });
+  }
+
+  static Future<dynamic> likePost({
+    required String postId,
+    required String userId,
+    required bool isLike,
+  }) async {
+    var postLiked =
+        await posts.doc(postId).collection('likes').doc(userId).set({
+      'isLike': isLike,
+    });
+    return postLiked;
   }
 
   static Future<bool?> updatePost({

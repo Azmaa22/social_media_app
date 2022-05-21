@@ -13,6 +13,26 @@ class PostCubit extends Cubit<PostStates> {
   static PostCubit get(context) => BlocProvider.of(context);
   String? postPhoto;
   final ImagePicker _picker = ImagePicker();
+  List<PostModel> posts = [];
+  List<int> postLikes = [];
+  void getAllPosts() {
+    emit(GetAllPostsLoadingState());
+    posts = [];
+    FirebaseStoreHelper.getPosts().then((value) {
+      value.docs.forEach((element) {
+        element.reference.collection('likes').get().then((value) {
+          postLikes.add(value.docs.length);
+
+          posts.add(PostModel.fromJson(element.data()));
+          emit(GetAllPostsSuccessState());
+        }).catchError((error) {});
+      });
+    }).catchError((error) {
+      print('all posts error $error');
+      emit(GetAllPostsErrorState(error));
+    });
+  }
+
   void createNewPost({required PostModel post}) {
     String? postId;
     emit(CreatePostLoadingState());
@@ -20,11 +40,8 @@ class PostCubit extends Cubit<PostStates> {
       postCreated.then((postInfo) async {
         postId = postInfo.id.toString();
         await FirebaseStoreHelper.addPostId(postId: postId!);
-        emit(
-          CreatePostSuccessState(
-            postId!,
-          ),
-        );
+        emit(CreatePostSuccessState(postId!));
+        getAllPosts();
       });
     }).catchError((error) {
       emit(CreatePostErrorState(error));
@@ -32,7 +49,7 @@ class PostCubit extends Cubit<PostStates> {
   }
 
   Future<void> uploadPostImage() async {
-    _picker.pickImage(source: ImageSource.gallery).then((value) {
+    _picker.pickImage(source: ImageSource.camera).then((value) {
       postPhoto = base64Encode(File(
         value!.path,
       ).readAsBytesSync());
@@ -47,5 +64,20 @@ class PostCubit extends Cubit<PostStates> {
   void removePickedImage() {
     postPhoto = null;
     emit(RemovePickedPostImageState());
+  }
+
+  void likePost({required String postId, required String userId}) {
+    FirebaseStoreHelper.likePost(
+      postId: postId,
+      userId: userId,
+      isLike: true,
+    ).then((value) {
+      print(' like post $value');
+
+      emit(LikePostSuccessState());
+    }).catchError((error) {
+      print('Error like post');
+      emit(LikePostErrorState());
+    });
   }
 }

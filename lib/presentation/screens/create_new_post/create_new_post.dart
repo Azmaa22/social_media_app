@@ -12,6 +12,7 @@ import 'package:social_media_app/data/models/user_model.dart';
 import 'package:social_media_app/presentation/components/button.dart';
 import 'package:social_media_app/presentation/screens/create_new_post/widgets/user_info.dart';
 import 'package:social_media_app/presentation/screens/navigation_container/navigation_container.dart';
+import 'package:intl/intl.dart';
 
 class CreatePost extends StatelessWidget {
   CreatePost({Key? key}) : super(key: key);
@@ -39,7 +40,8 @@ class CreatePost extends StatelessWidget {
                       userId: user.userId,
                       userName: user.username,
                       userImage: user.image,
-                      dateAndTime: DateTime.now().toString(),
+                      date: DateFormat.yMMMd().format(DateTime.now()),
+                      time: DateFormat.jm().format(DateTime.now()),
                       postContent: _postContent.text,
                       postImage: PostCubit.get(context).postPhoto,
                     ),

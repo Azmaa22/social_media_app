@@ -21,7 +21,7 @@ class AppBlocProvider {
       create: (BuildContext context) => ProfileCubit()..getProfileInfo(),
     ),
     BlocProvider<PostCubit>(
-      create: (BuildContext context) => PostCubit(),
+      create: (BuildContext context) => PostCubit()..getAllPosts(),
     ),
   ];
 }

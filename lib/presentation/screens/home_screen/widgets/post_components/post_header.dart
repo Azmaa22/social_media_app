@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class PostHeader extends StatelessWidget {
-  final String networkPicture, userName, dateOfPublishing, timeOfPublishing;
+  final String userImage, userName, dateOfPublishing, timeOfPublishing;
   const PostHeader({
     Key? key,
-    required this.networkPicture,
+    required this.userImage,
     required this.userName,
     required this.dateOfPublishing,
     required this.timeOfPublishing,
@@ -16,8 +18,10 @@ class PostHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30.0,
-          backgroundImage: NetworkImage(
-            networkPicture,
+          backgroundImage: MemoryImage(
+            base64Decode(
+              userImage,
+            ),
           ),
         ),
         const SizedBox(

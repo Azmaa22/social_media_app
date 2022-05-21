@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:social_media_app/constants/icon_broken.dart';
 import 'package:social_media_app/presentation/screens/home_screen/widgets/post_label.dart';
@@ -32,21 +34,23 @@ class PostBody extends StatelessWidget {
             color: Colors.blue,
           ),
         ),
-        Container(
-          height: size.height * 0.2,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-            image: DecorationImage(
-              image: NetworkImage(
-                postImage,
+        postImage == ''
+            ? const SizedBox()
+            : Container(
+                height: size.height * 0.2,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                  image: DecorationImage(
+                    image: MemoryImage(
+                      base64Decode(postImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
         const SizedBox(
           height: 10.0,
         ),

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/business_logic/cubits/post_cubit/post_cubit.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/constants/image_manager.dart';
+import 'package:social_media_app/data/models/post_model.dart';
 import 'package:social_media_app/presentation/screens/home_screen/widgets/post_components/post_components.dart';
 
 class PostContainer extends StatelessWidget {
-  const PostContainer({Key? key}) : super(key: key);
+  const PostContainer({
+    Key? key,
+    required this.post,
+    required this.numberOfLikes,
+  }) : super(key: key);
+  final PostModel post;
+  final int numberOfLikes;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +35,11 @@ class PostContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const PostHeader(
-              networkPicture: ImageManager.profileImage,
-              userName: 'Asmaa Khaled',
-              dateOfPublishing: 'jan 21, 2022',
-              timeOfPublishing: '11:00 pm',
+            PostHeader(
+              userImage: post.userImage!,
+              userName: post.userName!,
+              dateOfPublishing: post.date!,
+              timeOfPublishing: post.time!,
             ),
             const SizedBox(
               height: 10.0,
@@ -39,13 +47,12 @@ class PostContainer extends StatelessWidget {
             const Divider(
               color: Colors.grey,
             ),
-            const PostBody(
-              postText:
-                  ' Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book',
+            PostBody(
+              postText: post.postContent!,
               postHashtag: '#softwear_development',
-              postImage: ImageManager.postImage,
-              numberOfLikes: '1200',
-              numberOfComments: '512 comments',
+              postImage: post.postImage == null ? '' : post.postImage!,
+              numberOfLikes: numberOfLikes.toString(),
+              numberOfComments: '0 comments',
             ),
             const SizedBox(
               height: 5.0,
@@ -59,7 +66,10 @@ class PostContainer extends StatelessWidget {
                 debugPrint('writeComment');
               },
               likePost: () {
-                debugPrint('likePost');
+                PostCubit.get(context).likePost(
+                  postId: post.postId!,
+                  userId: post.userId!,
+                );
               },
               sharePost: () {
                 debugPrint('sharePost');
