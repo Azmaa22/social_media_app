@@ -11,6 +11,7 @@ import 'package:social_media_app/presentation/screens/profile_screen/profile_scr
 
 class NavigationContainer extends StatelessWidget {
   const NavigationContainer({Key? key}) : super(key: key);
+  static const id = 'NavigationContainer';
 
   @override
   Widget build(BuildContext context) {

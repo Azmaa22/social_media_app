@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_cubit.dart';
 import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_states.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
+import 'package:social_media_app/constants/icon_broken.dart';
 import 'package:social_media_app/constants/image_manager.dart';
 import 'package:social_media_app/presentation/components/button.dart';
 import 'package:social_media_app/presentation/components/label.dart';
+import 'package:social_media_app/presentation/screens/navigation_container/navigation_container.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const String id = 'ProfileScreen';
@@ -18,6 +20,18 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Profile'),
+        leading: InkWell(
+          onTap: () {
+            Navigator.popAndPushNamed(
+              context,
+              NavigationContainer.id,
+            );
+          },
+          child: const Icon(
+            IconBroken.Arrow___Left_2,
+            color: ColorManager.kOffWhiteColor,
+          ),
+        ),
       ),
       body: BlocConsumer<ProfileCubit, ProfileStates>(
         listener: (context, state) {

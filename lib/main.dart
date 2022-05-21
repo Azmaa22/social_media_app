@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
           RegistrationScreen.id: (context) => RegistrationScreen(),
           LoginScreen.id: (context) => LoginScreen(),
           ProfileScreen.id: (context) => const ProfileScreen(),
+          NavigationContainer.id: (context) => const NavigationContainer(),
         },
       ),
     );
