@@ -7,9 +7,8 @@ import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_sta
 import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/constants/icon_broken.dart';
 import 'package:social_media_app/constants/image_manager.dart';
-import 'package:social_media_app/data/models/user.dart';
+import 'package:social_media_app/data/models/user_model.dart';
 import 'package:social_media_app/presentation/components/components.dart';
-import 'package:social_media_app/presentation/screens/navigation_container/navigation_container.dart';
 import 'package:social_media_app/presentation/screens/profile_screen/profile_screen.dart';
 
 class EditProfileScreen extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_states.dart';
-import 'package:social_media_app/data/models/user.dart';
+import 'package:social_media_app/data/models/user_model.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_store_helper.dart';
 import 'package:social_media_app/helpers/shared_constants/shared_constants.dart';
 

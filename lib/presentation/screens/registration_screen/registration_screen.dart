@@ -5,7 +5,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:social_media_app/business_logic/cubits/sign_up_cubit/sign_up_cubit_route.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/constants/image_manager.dart';
-import 'package:social_media_app/data/models/user.dart';
+import 'package:social_media_app/data/models/user_model.dart';
 import 'package:social_media_app/presentation/components/components.dart';
 import 'package:social_media_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:social_media_app/presentation/screens/login_screen/login_screen.dart';

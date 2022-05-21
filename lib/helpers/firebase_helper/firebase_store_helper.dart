@@ -1,8 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:social_media_app/data/models/user.dart';
+import 'package:social_media_app/data/models/post_model.dart';
+import 'package:social_media_app/data/models/user_model.dart';
 
 class FirebaseStoreHelper {
   static CollectionReference users = getYourCollection(collectionName: 'users');
+  static CollectionReference posts = getYourCollection(collectionName: 'posts');
+  static addPostId({required String postId}) async {
+    await posts.doc(postId).update({
+      'postId': postId,
+    });
+  }
+
+  static Future<bool?> updatePost({
+    required String postId,
+    required String postContent,
+    required String postImage,
+  }) async {
+    bool? isUpdated;
+    await posts.doc(postId).update({
+      'postId': postId,
+      'postContent': postContent,
+      'postImage': postImage,
+    }).then((value) {
+      isUpdated = true;
+    }).catchError((error) {
+      isUpdated = false;
+    });
+    return isUpdated;
+  }
+
+  static Future<Future<DocumentReference<Object?>>> createNewPost(
+      {required PostModel post}) async {
+    var newPost = posts.add(post.toJson());
+
+    return newPost;
+  }
 
   static Future<dynamic> addNewUser({required UserModel user}) async {
     var newUser = users.doc(user.userId).set(user.toJson());

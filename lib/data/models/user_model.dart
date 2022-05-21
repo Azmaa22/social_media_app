@@ -1,5 +1,3 @@
-import 'package:social_media_app/constants/image_manager.dart';
-
 class UserModel {
   String? userId;
   late String username;

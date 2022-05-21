@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/presentation/screens/create_new_post/create_new_post.dart';
 import 'package:social_media_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:social_media_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:social_media_app/presentation/screens/navigation_container/navigation_container.dart';
@@ -12,5 +13,6 @@ class RoutesManager {
     ProfileScreen.id: (context) => const ProfileScreen(),
     NavigationContainer.id: (context) => const NavigationContainer(),
     EditProfileScreen.id: (context) => EditProfileScreen(),
+    CreatePost.id: (context) => CreatePost(),
   };
 }

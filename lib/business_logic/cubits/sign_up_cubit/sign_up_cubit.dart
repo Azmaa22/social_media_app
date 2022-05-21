@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/business_logic/cubits/sign_up_cubit/sign_up_states.dart';
 import 'package:social_media_app/constants/image_manager.dart';
-import 'package:social_media_app/data/models/user.dart';
+import 'package:social_media_app/data/models/user_model.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_auth_helper.dart';
 import 'package:social_media_app/helpers/firebase_helper/firebase_store_helper.dart';
 import 'package:social_media_app/helpers/image_helper/image_helper.dart';
