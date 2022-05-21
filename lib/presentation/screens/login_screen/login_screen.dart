@@ -6,7 +6,7 @@ import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_cub
 import 'package:social_media_app/business_logic/cubits/sign_in_cubit/sign_in_states.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/presentation/components/components.dart';
-import 'package:social_media_app/presentation/screens/profile_screen/profile_screen.dart';
+import 'package:social_media_app/presentation/screens/navigation_container/navigation_container.dart';
 import 'package:social_media_app/presentation/screens/registration_screen/registration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                     print('open profile page from login $state');
                     Navigator.pushNamed(
                       context,
-                      ProfileScreen.id,
+                      NavigationContainer.id,
                     );
                   }
                   if (state is SignInErrorState) {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_cubit.dart';
@@ -7,6 +9,7 @@ import 'package:social_media_app/constants/icon_broken.dart';
 import 'package:social_media_app/constants/image_manager.dart';
 import 'package:social_media_app/presentation/components/button.dart';
 import 'package:social_media_app/presentation/components/label.dart';
+import 'package:social_media_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:social_media_app/presentation/screens/navigation_container/navigation_container.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -66,9 +69,10 @@ class ProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.grey,
                           image: DecorationImage(
-                            image: NetworkImage(
-                              myCubit.user!.cover ??
-                                  ImageManager.coverPlaceholder,
+                            image: MemoryImage(
+                              base64Decode(
+                                ProfileCubit.get(context).user!.cover!,
+                              ),
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -80,9 +84,10 @@ class ProfileScreen extends StatelessWidget {
                       backgroundColor: ColorManager.kWhiteColor,
                       child: CircleAvatar(
                         radius: width * 0.11,
-                        backgroundImage: NetworkImage(
-                          myCubit.user!.image ??
-                              ImageManager.profilePlaceholder,
+                        backgroundImage: MemoryImage(
+                          base64Decode(
+                            ProfileCubit.get(context).user!.image!,
+                          ),
                         ),
                       ),
                     ),
@@ -117,7 +122,12 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            EditProfileScreen.id,
+                          );
+                        },
                         child: Container(
                           width: 50,
                           height: 50,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/business_logic/cubits/navigation_cubit/navigation_cubit.dart';
@@ -47,9 +49,10 @@ class NavigationContainer extends StatelessWidget {
                       }
                       return CircleAvatar(
                         radius: 20.0,
-                        backgroundImage: NetworkImage(
-                          ProfileCubit.get(context).user!.image ??
-                              ImageManager.profilePlaceholder,
+                        backgroundImage: MemoryImage(
+                          base64Decode(
+                            ProfileCubit.get(context).user!.image!,
+                          ),
                         ),
                       );
                     },

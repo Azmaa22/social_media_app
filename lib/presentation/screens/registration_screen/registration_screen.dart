@@ -4,10 +4,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:social_media_app/business_logic/cubits/sign_up_cubit/sign_up_cubit_route.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
+import 'package:social_media_app/constants/image_manager.dart';
 import 'package:social_media_app/data/models/user.dart';
 import 'package:social_media_app/presentation/components/components.dart';
+import 'package:social_media_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:social_media_app/presentation/screens/login_screen/login_screen.dart';
-import 'package:social_media_app/presentation/screens/profile_screen/profile_screen.dart';
 
 class RegistrationScreen extends StatelessWidget {
   static const String id = 'RegistrationScreen';
@@ -89,7 +90,7 @@ class RegistrationScreen extends StatelessWidget {
                         Input(
                           name: userName,
                           placeholder: 'please enter your user name',
-                          icon: 'assets/svgs/user-svgrepo-com.svg',
+                          icon: ImageManager.userIcon,
                           label: 'user name',
                           textInputType: TextInputType.text,
                           onChange: (value) {
@@ -107,7 +108,7 @@ class RegistrationScreen extends StatelessWidget {
                         Input(
                           name: email,
                           placeholder: 'please enter your email',
-                          icon: 'assets/svgs/email-svgrepo-com.svg',
+                          icon: ImageManager.emailIcon,
                           label: 'email',
                           textInputType: TextInputType.emailAddress,
                           onChange: (value) {
@@ -128,7 +129,7 @@ class RegistrationScreen extends StatelessWidget {
                         Input(
                           name: password,
                           placeholder: 'please enter your password',
-                          icon: 'assets/svgs/lock-svgrepo-com.svg',
+                          icon: ImageManager.passwordIcon,
                           label: 'password',
                           isPassword: true,
                           textInputType: TextInputType.visiblePassword,
@@ -203,7 +204,7 @@ class RegistrationScreen extends StatelessWidget {
                 print('open profile page $state');
                 Navigator.pushNamed(
                   context,
-                  ProfileScreen.id,
+                  EditProfileScreen.id,
                 );
               }
             },

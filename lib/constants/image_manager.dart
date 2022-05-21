@@ -9,4 +9,9 @@ class ImageManager {
       'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png';
   static const coverPlaceholder =
       'https://flw.imadeself.com/1/wp-content/uploads/2018/03/chereshnya-luchshie-sorta-62.png';
+
+  static const userIcon = 'assets/svgs/user-svgrepo-com.svg';
+  static const emailIcon = 'assets/svgs/email-svgrepo-com.svg';
+  static const passwordIcon = 'assets/svgs/lock-svgrepo-com.svg';
+  static const infoIcon = 'assets/svgs/icons8-info.svg';
 }
