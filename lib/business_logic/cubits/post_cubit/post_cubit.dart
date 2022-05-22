@@ -17,20 +17,21 @@ class PostCubit extends Cubit<PostStates> {
   List<int> postLikes = [];
   void getAllPosts() {
     emit(GetAllPostsLoadingState());
-    posts = [];
-    FirebaseStoreHelper.getPosts().then((value) {
-      value.docs.forEach((element) {
-        element.reference.collection('likes').get().then((value) {
-          postLikes.add(value.docs.length);
-
-          posts.add(PostModel.fromJson(element.data()));
-          emit(GetAllPostsSuccessState());
-        }).catchError((error) {});
+    if (posts.isEmpty) {
+      FirebaseStoreHelper.getPosts().then((value) {
+        postLikes.clear();
+        value.docs.forEach((element) {
+          element.reference.collection('likes').get().then((value) {
+            postLikes.add(value.docs.length);
+            posts.add(PostModel.fromJson(element.data()));
+            emit(GetAllPostsSuccessState());
+          }).catchError((error) {});
+        });
+      }).catchError((error) {
+        print('all posts error $error');
+        emit(GetAllPostsErrorState(error));
       });
-    }).catchError((error) {
-      print('all posts error $error');
-      emit(GetAllPostsErrorState(error));
-    });
+    }
   }
 
   void createNewPost({required PostModel post}) {
@@ -40,7 +41,9 @@ class PostCubit extends Cubit<PostStates> {
       postCreated.then((postInfo) async {
         postId = postInfo.id.toString();
         await FirebaseStoreHelper.addPostId(postId: postId!);
+
         emit(CreatePostSuccessState(postId!));
+        posts.clear();
         getAllPosts();
       });
     }).catchError((error) {
@@ -75,6 +78,8 @@ class PostCubit extends Cubit<PostStates> {
       print(' like post $value');
 
       emit(LikePostSuccessState());
+      posts.clear();
+      getAllPosts();
     }).catchError((error) {
       print('Error like post');
       emit(LikePostErrorState());

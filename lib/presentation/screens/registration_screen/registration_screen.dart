@@ -9,6 +9,7 @@ import 'package:social_media_app/data/models/user_model.dart';
 import 'package:social_media_app/presentation/components/components.dart';
 import 'package:social_media_app/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:social_media_app/presentation/screens/login_screen/login_screen.dart';
+import 'package:social_media_app/presentation/screens/navigation_container/navigation_container.dart';
 
 class RegistrationScreen extends StatelessWidget {
   static const String id = 'RegistrationScreen';
@@ -204,7 +205,7 @@ class RegistrationScreen extends StatelessWidget {
                 print('open profile page $state');
                 Navigator.pushNamed(
                   context,
-                  EditProfileScreen.id,
+                  NavigationContainer.id,
                 );
               }
             },

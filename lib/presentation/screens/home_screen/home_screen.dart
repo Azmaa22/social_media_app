@@ -104,6 +104,7 @@ class HomeScreen extends StatelessWidget {
             ),
             BlocBuilder<PostCubit, PostStates>(
               builder: (context, state) {
+                debugPrint('current post state $state');
                 if (state is GetAllPostsLoadingState) {
                   return const Center(
                     child: CircularProgressIndicator(

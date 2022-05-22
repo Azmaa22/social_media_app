@@ -49,7 +49,7 @@ class PostContainer extends StatelessWidget {
             ),
             PostBody(
               postText: post.postContent!,
-              postHashtag: '#softwear_development',
+              postHashtag: '',
               postImage: post.postImage == null ? '' : post.postImage!,
               numberOfLikes: numberOfLikes.toString(),
               numberOfComments: '0 comments',
@@ -61,7 +61,7 @@ class PostContainer extends StatelessWidget {
               color: Colors.grey,
             ),
             PostFooter(
-              userImage: ImageManager.profileImage,
+              userImage: post.userImage!,
               writeComment: () {
                 debugPrint('writeComment');
               },

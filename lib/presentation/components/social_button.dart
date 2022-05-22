@@ -9,7 +9,7 @@ class SocialButton extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.onPress,
-    this.width = 100,
+    this.width = 80,
     this.height = 60,
   }) : super(key: key);
 

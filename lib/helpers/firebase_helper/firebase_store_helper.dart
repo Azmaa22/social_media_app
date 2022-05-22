@@ -1,10 +1,58 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:social_media_app/data/models/message_model.dart';
 import 'package:social_media_app/data/models/post_model.dart';
 import 'package:social_media_app/data/models/user_model.dart';
 
 class FirebaseStoreHelper {
   static CollectionReference users = getYourCollection(collectionName: 'users');
   static CollectionReference posts = getYourCollection(collectionName: 'posts');
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages({
+    required String senderId,
+    required String receiverId,
+  }) {
+    return users
+        .doc(senderId)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        // .orderBy('dateTime')
+        .snapshots();
+  }
+
+  static addMessageId({
+    required String senderId,
+    required String receiverId,
+    required String messageId,
+  }) async {
+    await users
+        .doc(senderId)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .doc(messageId)
+        .update({
+      'messageId': messageId,
+    });
+  }
+
+  static Future<DocumentReference<Map<String, dynamic>>> sendMessage(
+      {required MessageModel message}) async {
+    var sentMessage = await users
+        .doc(message.senderId)
+        .collection('chats')
+        .doc(message.receiverId)
+        .collection('messages')
+        .add(message.toJson());
+
+    return sentMessage;
+  }
+
+  static Future<QuerySnapshot<Object?>> getUsers() async {
+    QuerySnapshot<Object?> data = await users.get();
+
+    return data;
+  }
 
   static Future<QuerySnapshot<Object?>> getPosts() async {
     QuerySnapshot<Object?> data = await posts.get();

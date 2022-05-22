@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:social_media_app/constants/icon_broken.dart';
 import 'package:social_media_app/presentation/screens/home_screen/widgets/post_label.dart';
@@ -23,9 +25,11 @@ class PostFooter extends StatelessWidget {
             child: Row(
               children: [
                 CircleAvatar(
-                  radius: 18.0,
-                  backgroundImage: NetworkImage(
-                    userImage,
+                  radius: 15.0,
+                  backgroundImage: MemoryImage(
+                    base64Decode(
+                      userImage,
+                    ),
                   ),
                 ),
                 const SizedBox(

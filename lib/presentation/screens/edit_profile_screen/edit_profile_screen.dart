@@ -84,53 +84,92 @@ class EditProfileScreen extends StatelessWidget {
               child: Text('Something Error'),
             );
           } else {
-            return Column(
-              children: [
-                if (state is EditProfileLoadingState)
-                  const LinearProgressIndicator(
-                    color: ColorManager.kPrimaryColor,
-                  ),
-                SizedBox(
-                  height: height * 0.25,
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional.topEnd,
-                            child: Container(
-                              width: width,
-                              height: height * 0.2,
-                              decoration: BoxDecoration(
-                                color: Colors.grey,
-                                image: DecorationImage(
-                                  image: MemoryImage(
-                                    myCubit.coverPhoto == null
-                                        ? base64Decode(myCubit.user!.cover!)
-                                        : base64Decode(
-                                            myCubit.coverPhoto!,
-                                          ),
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  if (state is EditProfileLoadingState)
+                    const LinearProgressIndicator(
+                      color: ColorManager.kPrimaryColor,
+                    ),
+                  SizedBox(
+                    height: height * 0.25,
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      children: [
+                        Stack(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional.topEnd,
+                              child: Container(
+                                width: width,
+                                height: height * 0.2,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  image: DecorationImage(
+                                    image: MemoryImage(
+                                      myCubit.coverPhoto == null
+                                          ? base64Decode(myCubit.user!.cover!)
+                                          : base64Decode(
+                                              myCubit.coverPhoto!,
+                                            ),
+                                    ),
+                                    fit: BoxFit.cover,
                                   ),
-                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(
-                              8.0,
+                            Padding(
+                              padding: const EdgeInsets.all(
+                                8.0,
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional.topEnd,
+                                child: InkWell(
+                                  onTap: () {
+                                    myCubit.chooseCoverImage();
+                                  },
+                                  child: const CircleAvatar(
+                                    backgroundColor: ColorManager.kPrimaryColor,
+                                    radius: 20.0,
+                                    child: Icon(
+                                      IconBroken.Camera,
+                                      color: ColorManager.kOffWhiteColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                            child: Align(
-                              alignment: AlignmentDirectional.topEnd,
+                          ],
+                        ),
+                        Stack(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          children: [
+                            CircleAvatar(
+                              radius: width * 0.12,
+                              backgroundColor: ColorManager.kWhiteColor,
+                              child: CircleAvatar(
+                                radius: width * 0.11,
+                                backgroundImage: MemoryImage(
+                                  myCubit.profilePhoto == null
+                                      ? base64Decode(myCubit.user!.image!)
+                                      : base64Decode(
+                                          myCubit.profilePhoto!,
+                                        ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 50.0,
+                              ),
                               child: InkWell(
                                 onTap: () {
-                                  myCubit.chooseCoverImage();
+                                  myCubit.chooseProfileImage();
                                 },
                                 child: const CircleAvatar(
-                                  backgroundColor: ColorManager.kPrimaryColor,
                                   radius: 20.0,
+                                  backgroundColor: ColorManager.kPrimaryColor,
                                   child: Icon(
                                     IconBroken.Camera,
                                     color: ColorManager.kOffWhiteColor,
@@ -138,105 +177,68 @@ class EditProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          CircleAvatar(
-                            radius: width * 0.12,
-                            backgroundColor: ColorManager.kWhiteColor,
-                            child: CircleAvatar(
-                              radius: width * 0.11,
-                              backgroundImage: MemoryImage(
-                                myCubit.profilePhoto == null
-                                    ? base64Decode(myCubit.user!.image!)
-                                    : base64Decode(
-                                        myCubit.profilePhoto!,
-                                      ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 50.0,
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                myCubit.chooseProfileImage();
-                              },
-                              child: const CircleAvatar(
-                                radius: 20.0,
-                                backgroundColor: ColorManager.kPrimaryColor,
-                                child: Icon(
-                                  IconBroken.Camera,
-                                  color: ColorManager.kOffWhiteColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FormBuilder(
-                    key: _formKey,
-                    initialValue: {
-                      userName: myCubit.user!.username,
-                      bio: myCubit.user!.bio,
-                    },
-                    child: Column(
-                      children: [
-                        Input(
-                          initialValue: myCubit.user!.username,
-                          name: userName,
-                          placeholder: '',
-                          icon: ImageManager.userIcon,
-                          iconColor: ColorManager.kPrimaryColor,
-                          label: 'userName',
-                          onChange: (value) {},
-                          onValidate: (value) {},
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        Input(
-                          initialValue:
-                              myCubit.user!.bio ?? 'Write Your Bio...',
-                          name: bio,
-                          placeholder: '',
-                          icon: ImageManager.infoIcon,
-                          iconColor: ColorManager.kPrimaryColor,
-                          label: 'bio',
-                          onChange: (value) {},
-                          onValidate: (value) {},
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        Input(
-                          initialValue: myCubit.user!.email,
-                          name: 'email',
-                          placeholder: '',
-                          icon: ImageManager.emailIcon,
-                          iconColor: ColorManager.kPrimaryColor,
-                          label: 'email',
-                          onChange: (value) {},
-                          onValidate: (value) {},
-                          isReadOnly: false,
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FormBuilder(
+                      key: _formKey,
+                      initialValue: {
+                        userName: myCubit.user!.username,
+                        bio: myCubit.user!.bio,
+                      },
+                      child: Column(
+                        children: [
+                          Input(
+                            initialValue: myCubit.user!.username,
+                            name: userName,
+                            placeholder: '',
+                            icon: ImageManager.userIcon,
+                            iconColor: ColorManager.kPrimaryColor,
+                            label: 'userName',
+                            onChange: (value) {},
+                            onValidate: (value) {},
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          Input(
+                            initialValue:
+                                myCubit.user!.bio ?? 'Write Your Bio...',
+                            name: bio,
+                            placeholder: '',
+                            icon: ImageManager.infoIcon,
+                            iconColor: ColorManager.kPrimaryColor,
+                            label: 'bio',
+                            onChange: (value) {},
+                            onValidate: (value) {},
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          Input(
+                            initialValue: myCubit.user!.email,
+                            name: 'email',
+                            placeholder: '',
+                            icon: ImageManager.emailIcon,
+                            iconColor: ColorManager.kPrimaryColor,
+                            label: 'email',
+                            onChange: (value) {},
+                            onValidate: (value) {},
+                            isReadOnly: false,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           }
         },
