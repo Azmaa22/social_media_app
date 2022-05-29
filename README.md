@@ -41,4 +41,3 @@ Simple Social Media App to create and active with posts and chatting with your f
     </td>
  </tr>
 </table>
-[![Watch the video]([https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg](https://user-images.githubusercontent.com/52568588/170867844-74c480e0-9876-4508-9f83-e63b2b055825.png))](https://user-images.githubusercontent.com/52568588/170868007-d79121d1-39f5-4ed3-8fd7-6c4afeda0732.mp4)
