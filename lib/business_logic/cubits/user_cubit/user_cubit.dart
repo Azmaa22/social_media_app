@@ -27,4 +27,22 @@ class UserCubit extends Cubit<UserStates> {
       });
     }
   }
+
+  dynamic getUser({required String userId}) {
+    emit(GetUserLoadingState());
+
+    FirebaseStoreHelper.getCurrentUser(
+      userId: userId,
+    ).then(
+      (value) {
+        var temp = value.data();
+        UserModel user = UserModel.fromJson(temp);
+        emit(GetUserSuccessState());
+        return user;
+      },
+    ).catchError((error) {
+      emit(GetUserErrorState(error));
+      return null;
+    });
+  }
 }

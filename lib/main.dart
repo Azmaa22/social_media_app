@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
@@ -19,8 +20,28 @@ void main() async {
         messagingSenderId: 'my_messagingSenderId',
         projectId: 'iti-task-1fc63'),
   );
-  await SharedPreferencesHelper.initSharedPreferences();
 
+  await SharedPreferencesHelper.initSharedPreferences();
+  var token = await FirebaseMessaging.instance.getToken();
+  // debugPrint('device token : $token');
+  SharedConstants.token = token!;
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    debugPrint('Got a message whilst in the foreground!');
+    debugPrint('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      debugPrint(
+          'Message also contained a notification title: ${message.notification!.title.toString()}');
+    }
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    debugPrint('event --> ${event.data.toString()}');
+  });
+  Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    debugPrint('event onbackground --> ${message.data.toString()}');
+  }
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   Widget widget;
   var userId = SharedPreferencesHelper.getData(key: 'uId');
   SharedConstants.uId = userId ?? '';

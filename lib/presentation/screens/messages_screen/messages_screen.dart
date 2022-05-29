@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/business_logic/cubits/message_cubit/message_cubit.dart';
 import 'package:social_media_app/business_logic/cubits/message_cubit/message_states.dart';
+import 'package:social_media_app/business_logic/cubits/profile_cubit/profile_cubit.dart';
 import 'package:social_media_app/constants/colors_manager.dart';
 import 'package:social_media_app/constants/icon_broken.dart';
 import 'package:social_media_app/data/models/message_model.dart';
@@ -81,6 +82,9 @@ class MessagesScreen extends StatelessWidget {
                             return MessageContainer(
                               isMe: isMe,
                               messageText: message.messageText!,
+                              image: isMe
+                                  ? ProfileCubit.get(context).user!.image
+                                  : friend.image,
                             );
                           }),
                     ),

@@ -15,3 +15,15 @@ class GetAllUserErrorState extends UserStates {
     debugPrint('Error while get all users $error');
   }
 }
+
+class GetUserLoadingState extends UserStates {}
+
+class GetUserSuccessState extends UserStates {}
+
+class GetUserErrorState extends UserStates {
+  final String error;
+
+  GetUserErrorState(this.error) {
+    debugPrint('Error while get all users $error');
+  }
+}

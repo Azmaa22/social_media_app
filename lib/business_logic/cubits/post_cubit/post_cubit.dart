@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/business_logic/cubits/post_cubit/post_states.dart';
@@ -52,7 +50,7 @@ class PostCubit extends Cubit<PostStates> {
   }
 
   Future<void> uploadPostImage() async {
-    _picker.pickImage(source: ImageSource.camera).then((value) {
+    _picker.pickImage(source: ImageSource.gallery).then((value) {
       postPhoto = base64Encode(File(
         value!.path,
       ).readAsBytesSync());
